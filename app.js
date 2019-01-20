@@ -4,8 +4,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const errorController = require('./controllers/error');
+const User = require('./models/user');
 
-const connectMongo = require('./util/connection');
+const connectMongo = require('./util/connection').connectMongo;
 
 const app = express();
 
@@ -17,6 +18,16 @@ const shopRoutes = require('./routes/shop');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use((req, res, next) => {
+  User.fetchById('5c35c8999ad00750889bfcea')
+    .then(user => {
+      // console.log(user);
+      req.user = new User(user.username, user.email, user.cart, user._id);
+      next();
+    })
+    .catch(err => console.log(err));
+});
 
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);

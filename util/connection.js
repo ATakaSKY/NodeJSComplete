@@ -18,11 +18,11 @@ const connectMongo = callback => {
 };
 
 const getDb = () => {
-  if(_db){
-    return db;
+  if (_db) {
+    return _db;
   }
   throw 'No database found';
-}
+};
 
 exports.connectMongo = connectMongo;
 exports.getDb = getDb;

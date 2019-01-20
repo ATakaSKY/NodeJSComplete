@@ -14,12 +14,14 @@ router.get('/products/:productId', shopController.getProductsById);
 
 router.get('/cart', shopController.getCart);
 
-router.post('/cart', shopController.postProduct);
+router.post('/cart', shopController.postCart);
 
 router.post('/cart-delete-product', shopController.deleteProductFromCart);
 
+router.post('/create-order', shopController.postOrder);
+
 router.get('/orders', shopController.getOrders);
 
-router.get('/checkout', shopController.getCheckout);
+// router.get('/checkout', shopController.getCheckout);
 
 module.exports = router;

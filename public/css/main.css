@@ -225,3 +225,7 @@ form {
     display: none;
   }
 }
+
+.productImg{
+  width: 30%;
+}

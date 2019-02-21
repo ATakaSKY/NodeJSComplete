@@ -7,6 +7,7 @@ const session = require('express-session');
 const MongoDbStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
+const multer = require('multer');
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
@@ -53,7 +54,7 @@ app.use((req, res, next) => {
       req.user = user;
       next();
     })
-    .catch(err => console.log(err));
+    .catch(err => next(new Error(err)));
 });
 
 app.use((req, res, next) => {
@@ -66,7 +67,13 @@ app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(authRoutes);
 
+app.use(errorController.get500);
+
 app.use(errorController.get404);
+
+app.use((error, req, res, next) => {
+  return res.redirect('/500');
+});
 
 mongoose
   .connect(MONGODB_URI)

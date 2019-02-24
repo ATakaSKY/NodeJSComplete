@@ -23,9 +23,6 @@ router.post(
       .isLength({ min: 3 })
       .trim()
       .withMessage('Title is required with atleast 3 characters'),
-    body('imageUrl')
-      .isURL()
-      .withMessage('Url must be a valid URL'),
     body('price')
       .isFloat()
       .withMessage('Price must be valid'),
@@ -47,9 +44,6 @@ router.post(
       .isLength({ min: 3 })
       .trim()
       .withMessage('Title is required with atleast 3 characters'),
-    body('imageUrl')
-      .isURL()
-      .withMessage('Url must be a valid URL'),
     body('price')
       .isFloat()
       .withMessage('Price must be valid'),
